@@ -10,48 +10,30 @@ import time
 import colorama
 from colorama import Fore, Back, Style, init
 import sys
+import hashlib
 os.system("clear")
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 s.settimeout(5)
 print(Fore.RED + """
 ---------------------------------------------
-
-coder by HAWK 
-    SİTE VE SUNUCU BİLGİ TOPLAMA ARACI 
-    
+      1.PORT TARAMA
 ---------------------------------------------
-
-coder by HAWK 
-        1.PORT TARAMA
-        
----------------------------------------------
-
-coder by HAWK 
       2.SAYFA KAYNAK KODU ÇEKME
-
 ---------------------------------------------
-
-coder by HAWK 
       3.İP TRACER
-
 ---------------------------------------------
-
-coder by HAWK 
-      4.WHOİS SORGULAMA 
-
+      4.WHOİS SORGULAMA
 ---------------------------------------------
-
-coder by HAWK 
-      5.SİTE İP ADRESİ GÖRÜNTÜLE 
-
+      5.SİTE İP ADRESİ GÖRÜNTÜLE
 ---------------------------------------------
-
-
-coder by HAWK 
-      6.HEPSİ  
-
+      6.MD5 ŞİFRELEME
 ---------------------------------------------
-
+      7.SHA512 ŞİFRELEME
+---------------------------------------------
+      8.SQLMAP VERİTABANI ÇEKME
+---------------------------------------------
+      9.Bilgi toplama
+---------------------------------------------
       """)
 veri = input(Fore.GREEN + "Islem Numarasini Girin: ")
 if (veri == "1" ) :
@@ -66,7 +48,7 @@ def portScanner(port):
     portScanner(port)
 
 if (veri == "2" ) :
-    
+
     url = input(Fore.RED + "(example:https://www.google.com)URL : ")
     r = requests.get(url)
     txt = r.text
@@ -90,6 +72,20 @@ if (veri == "5" ) :
     print(socket.gethostbyname(dom))
 
 if (veri == "6" ) :
+    m=hashlib.sha512()
+    sha512 = input("STRİNG : ")
+    m.update(sha512.encode('utf-8'))
+    print(m.hexdigest())
+if (veri== "7" ) :
+    sifreleyici = hashlib.md5()
+    metin = input("lütfen Hashlenecek metini giriniz: ")
+    sifreleyici.update(metin.encode("utf-8"))
+    hash = sifreleyici.hexdigest()
+    print("Çıktı>>> %s" % hash)
+if (veri== "8" ) :
+     açık = input("Açığı olan site : ")
+     os.system("sqlmap -u"+açık+" --dbs --random-agent")
+if (veri== "9") :
     d3 = input('Enter IP Or Domain +hawk bilgi toplama aracı+: ')
     os.system(" clear ")
     os.system("curl http://api.hackertarget.com/whois/?q=" + d3 )
@@ -106,12 +102,3 @@ if (veri == "6" ) :
     os.system(" && ")
     os.system("curl http://api.hackertarget.com/nmap/?q=" + d3 )
     time.sleep( 5 )
-    os.system(" && ")
-    p = """----------------------------------------------------
-
-               HAWK BİLGİ TOPLAMA ARACI
-        ----------------------------------------------------
-                      ^ hawk v3 ^
-"""
-    print(p)
-
